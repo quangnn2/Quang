@@ -1,0 +1,36 @@
+﻿<Window x:Class="QuanLyMuaBanSach.Tonkho"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QuanLyMuaBanSach"
+        mc:Ignorable="d"
+          xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="Tonkho" Height="300" Width="450">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <materialDesign:Card Margin="5" VerticalAlignment="Stretch">
+                <Button Content="Xuất báo cáo" Margin="5" Width="120" HorizontalAlignment="Left" Click="Button_Click"></Button>
+            </materialDesign:Card>
+        </Grid>
+        <Grid Grid.Row="1">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <DataGrid Name="ListViewThongke" AutoGenerateColumns="False" IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn  Header="Mã sách"  Binding="{Binding MaSach}"/>
+                        <DataGridTextColumn  Header="Tên sách"  Binding="{Binding TenSach}"/>
+                        <DataGridTextColumn Header=" Tổng nhập" Binding="{Binding tn}"/>
+                        <DataGridTextColumn Header="Tổng bán"  Binding="{Binding tx}"/>
+                        <DataGridTextColumn Header="Tồn kho" Binding="{Binding Ton}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Window>

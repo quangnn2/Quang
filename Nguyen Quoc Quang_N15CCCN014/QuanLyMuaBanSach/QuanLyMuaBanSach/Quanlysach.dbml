@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Quanlymuabansach" Class="QuanlysachDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=QUANG_BI\SERVER_CHU;Initial Catalog=Quanlymuabansach;User ID=sa" SettingsObjectName="QuanLyMuaBanSach.Properties.Settings" SettingsPropertyName="QuanlymuabansachConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.chiTietBan" Member="chiTietBans">
+    <Type Name="chiTietBan">
+      <Column Name="ID" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="MaSach" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SoLuong" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IDKhachHang" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Gia" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="NgayBan" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="khachHang_chiTietBan" Member="khachHang" ThisKey="IDKhachHang" OtherKey="ID" Type="khachHang" IsForeignKey="true" DeleteRule="CASCADE" />
+      <Association Name="sach_chiTietBan" Member="sach" ThisKey="MaSach" OtherKey="MaSach" Type="sach" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.khachHang" Member="khachHangs">
+    <Type Name="khachHang">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TenKhachHang" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DiaChi" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SoDienthoai" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NgaySinh" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="khachHang_chiTietBan" Member="chiTietBans" ThisKey="ID" OtherKey="IDKhachHang" Type="chiTietBan" />
+    </Type>
+  </Table>
+  <Table Name="dbo.chiTietNhap" Member="chiTietNhaps">
+    <Type Name="chiTietNhap">
+      <Column Name="ID" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IDNhaCungCap" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MaSach" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SoLuong" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Gia" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="NgayNhap" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="nhaCungCap_chiTietNhap" Member="nhaCungCap" ThisKey="IDNhaCungCap" OtherKey="ID" Type="nhaCungCap" IsForeignKey="true" />
+      <Association Name="sach_chiTietNhap" Member="sach" ThisKey="MaSach" OtherKey="MaSach" Type="sach" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.nhaCungCap" Member="nhaCungCaps">
+    <Type Name="nhaCungCap">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TenNhaCungCap" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DiaChi" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SoDienThoai" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="nhaCungCap_chiTietNhap" Member="chiTietNhaps" ThisKey="ID" OtherKey="IDNhaCungCap" Type="chiTietNhap" />
+    </Type>
+  </Table>
+  <Table Name="dbo.sach" Member="saches">
+    <Type Name="sach">
+      <Column Name="MaSach" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TenSach" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="IDTacGia" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IDTheLoai" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="sach_chiTietBan" Member="chiTietBans" ThisKey="MaSach" OtherKey="MaSach" Type="chiTietBan" />
+      <Association Name="sach_chiTietNhap" Member="chiTietNhaps" ThisKey="MaSach" OtherKey="MaSach" Type="chiTietNhap" />
+      <Association Name="tacGia_sach" Member="tacGia" ThisKey="IDTacGia" OtherKey="ID" Type="tacGia" IsForeignKey="true" DeleteRule="CASCADE" />
+      <Association Name="theLoai_sach" Member="theLoai" ThisKey="IDTheLoai" OtherKey="ID" Type="theLoai" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tacGia" Member="tacGias">
+    <Type Name="tacGia">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TenTacGia" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="tacGia_sach" Member="saches" ThisKey="ID" OtherKey="IDTacGia" Type="sach" />
+    </Type>
+  </Table>
+  <Table Name="dbo.theLoai" Member="theLoais">
+    <Type Name="theLoai">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TheLoai" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="theLoai_sach" Member="saches" ThisKey="ID" OtherKey="IDTheLoai" Type="sach" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[user]" Member="users">
+    <Type Name="user">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TenHienThi" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="TenDangNhap" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PassWord" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Quyen" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>
